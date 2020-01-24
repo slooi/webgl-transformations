@@ -48,13 +48,45 @@ for(let i=0;i<gl.getProgramParameter(program,gl.ACTIVE_UNIFORMS);i++){
 // Data
 const vertexData = [
 // X	Y		R 	G		B
-	0,	0,	0,	0,	1
+	0,	0,	0,	0,	1,		// 0
+	30,	0,	0,	1,	0,		// 1
+	30,	60,	1,	0,	0,		// 2
+	
+	60,	60,	0,	1,	0,		// 3
+	60,	90,	1,	0,	0,		// 4
+	30,	90,	1,	0,	0,		// 5
+	
+	30,		120,	0,		1,		0,		// 6
+	60,		120,		1,		0,		0,		// 7
+	60,		150,		1,		0,		0,		// 8
+
+	0,		150,		1,		0,		0		// 9
+]
+const indexData = [
+	// "F" trunk + top horizontal line
+	0,1,2,
+	0,2,9,
+	2,5,9,
+	5,6,9,
+	6,8,9,
+	6,7,8,
+
+	// bottom horizontal line
+	2, 3, 4,
+	2, 4, 5,
 ]
 
+
 // Buffer
+// Vertex
 const vertexDataBuffer = gl.createBuffer()
 gl.bindBuffer(gl.ARRAY_BUFFER,vertexDataBuffer)
 gl.bufferData(gl.ARRAY_BUFFER,new Float32Array(vertexData),gl.STATIC_DRAW)
+
+// Index
+const indexDataBuffer = gl.createBuffer()
+gl.bindBuffer(gl.ELEMENT_ARRAY_BUFFER,indexDataBuffer)
+gl.bufferData(gl.ELEMENT_ARRAY_BUFFER,new Uint16Array(indexData),gl.STATIC_DRAW)
 
 // Position
 gl.vertexAttribPointer(
@@ -78,8 +110,15 @@ gl.vertexAttribPointer(
 )
 gl.enableVertexAttribArray(attribLocations.a_Color)
 
+
+
+
+
 // Render
-gl.drawArrays(gl.POINTS,0,vertexData.length/5)
+// gl.drawArrays(gl.POINTS,0,vertexData.length/5)
+// gl.drawArrays(gl.TRIANGLES,0,vertexData.length/5)
+
+gl.drawElements(gl.TRIANGLES,indexData.length,gl.UNSIGNED_SHORT,0)
 
 
 // FUNCTIONS
