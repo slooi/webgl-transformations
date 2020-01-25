@@ -24,7 +24,7 @@
 			void main(){
 				v_Color = a_Color;
 
-				gl_Position = vec4((u_TransformMatrix*vec3(a_Position/300.0,1.0)).xy,0.0,1.0);
+				gl_Position = vec4((u_TransformMatrix*vec3(a_Position,1.0)).xy,0.0,1.0);
 				gl_PointSize = 5.0;
 			}
 		</script>

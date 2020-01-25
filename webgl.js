@@ -175,6 +175,13 @@ const m3 = {
 			tx, ty, 1
 		]
 	},
+	projection: function(){
+		return [
+			1/300, 0, 0,
+			0, 1/300, 0,
+      0, 0, 1
+		]
+	},
 	scale: function(m,sx,sy){
 		return m3.multiply(m3.scaling(sx,sy),m)
 	},
@@ -183,13 +190,19 @@ const m3 = {
 	},
 	translate: function(m,tx,ty){
 		return m3.multiply(m3.translation(tx,ty),m)
+	},
+	project: function(m){
+		return m3.multiply(m3.projection(),m)
 	}
 }
 // Preperation for rendering
 let transformationMatrix = m3.identity()
-transformationMatrix = m3.scale(transformationMatrix,2,1)
-transformationMatrix = m3.rotate(transformationMatrix,45)
+transformationMatrix = m3.project(transformationMatrix)
 transformationMatrix = m3.translate(transformationMatrix,0,0)
+transformationMatrix = m3.rotate(transformationMatrix,0)
+transformationMatrix = m3.scale(transformationMatrix,1,2)
+transformationMatrix = m3.translate(transformationMatrix,-15,0) // rotate origin
+// transformationMatrix = m3.translate(transformationMatrix,0,0.2)
 
 
 // Uniforms
