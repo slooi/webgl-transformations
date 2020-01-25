@@ -1,11 +1,9 @@
 <!DOCTYPE html>
 
 <html lang="en">
-	<head>
+	<head>		<link href="style.css" type="text/css" rel="stylesheet"/>
+
 		<style>
-			canvas {
-				border: 1px solid black;
-			}
 		</style>
 
 	</head>
@@ -40,8 +38,98 @@
 			}
 		</script>
 
-
+		
+		<div id="container">
+			<canvas width="300" height="300" id="webglCanvas"></canvas>
+			<div id="controls">
+				<table>
+					<tr>
+						<td>
+							Translation (x): 
+						</td>
+						<td>
+							<input type="range" min="-150" max="150" name="translationx" oninput="sliderChange(this)" />
+						</td>
+						<td id="translationx">
+							1
+						</td>
+					</tr>
+					<tr>
+						<td>
+							Translation (y):
+						</td>
+						<td>
+							<input type="range" min="-150" max="150" name="translationy" oninput="sliderChange(this)" />
+						</td>
+						<td id="translationy">
+							1
+						</td>
+					</tr>
+					<tr>
+						<td>
+							Rotation:
+						</td>
+						<td>
+							<input type="range" min="0" max="360" name="rotation" oninput="sliderChange(this)" />
+						</td>
+						<td id="rotation">
+							1
+						</td>
+					</tr>
+					<tr>
+						<td>
+							Scale (x):
+						</td>
+						<td>
+							<input type="range" step="0.1" min="-10" max="10" name="scalex" oninput="sliderChange(this)" />
+						</td>
+						<td id="scalex">
+							1
+						</td>
+					</tr>
+					<tr>
+						<td>
+							Scale (y):
+						</td>
+						<td>
+							<input type="range" step="0.1" min="-10" max="10" name="scaley" oninput="sliderChange(this)" />
+						</td>
+						<td id="scaley">
+							1
+						</td>
+					</tr>
+					<tr>
+						<td>
+							Origin (x):
+						</td>
+						<td>
+							<input type="range" min="-150" max="150" name="originx" oninput="sliderChange(this)" />
+						</td>
+						<td id="originx">
+							1
+						</td>
+					</tr>
+					<tr>
+						<td>
+							Origin (y):
+						</td>
+						<td><input type="range" min="-150" max="150" name="originy" oninput="sliderChange(this)" />
+						</td>
+						<td id="originy">
+							1
+						</td>
+					</tr>
+					<tr>
+						<td>
+							<button onclick="resetValues()">Reset</button>
+						</td>
+					</tr>
+				</table>
+			</div>
+		</div>
+		<!-- translate,rotate,scale,origin -->
 		<!-- MAIN CODE -->
 		<script src="webgl.js"></script>
+		<script src="main.js"></script>
 	</body>
 </html>
