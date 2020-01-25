@@ -174,11 +174,23 @@ const m3 = {
 			0, 1, 0,
 			tx, ty, 1
 		]
+	},
+	scale: function(m,sx,sy){
+		return m3.multiply(m3.scaling(sx,sy),m)
+	},
+	rotate: function(m,degrees){
+		return m3.multiply(m3.rotation(degrees),m)
+	},
+	translate: function(m,tx,ty){
+		return m3.multiply(m3.translation(tx,ty),m)
 	}
 }
 // Preperation for rendering
 let transformationMatrix = m3.identity()
-transformationMatrix = m3.rotation(10)
+transformationMatrix = m3.scale(transformationMatrix,2,1)
+transformationMatrix = m3.rotate(transformationMatrix,45)
+transformationMatrix = m3.translate(transformationMatrix,0,0)
+
 
 // Uniforms
 gl.uniformMatrix3fv(uniformLocations.u_TransformMatrix,false,transformationMatrix)
