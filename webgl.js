@@ -153,31 +153,32 @@ const m3 = {
 			a20 * b02 + a21 * b12 + a22 * b22
 		]
 	},
-	scale: function(sx,sy){
+	scaling: function(sx,sy){
 		return [
 			sx, 0, 0,
 			0, sy, 0,
 			0, 0, 1,
 		]
 	},
-	transpose: function(tx,ty){
-		return [
-			1, 0, 0,
-			0, 1, 0,
-			tx, ty, 1
-		]
-	},
-	rotate: function(degrees){
+	rotation: function(degrees){
 		const radians = degrees * Math.PI/180
 		return [
 			Math.cos(radians), -Math.sin(radians), 0,
 			Math.sin(radians), Math.cos(radians), 0,
 			0, 0, 1
 		]
+	},
+	translation: function(tx,ty){
+		return [
+			1, 0, 0,
+			0, 1, 0,
+			tx, ty, 1
+		]
 	}
 }
 // Preperation for rendering
-let transformationMatrix = m3.rotate(0)
+let transformationMatrix = m3.identity()
+transformationMatrix = m3.rotation(10)
 
 // Uniforms
 gl.uniformMatrix3fv(uniformLocations.u_TransformMatrix,false,transformationMatrix)
