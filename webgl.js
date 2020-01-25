@@ -23,7 +23,7 @@ if(!gl)
 
 // viewport && clearColor && clear
 gl.viewport(0,0,canvas.width,canvas.height)
-gl.clearColor(0.1,0.0,0.1,1.0)
+gl.clearColor(0.8,0.8,0.8,1.0)
 gl.clear(gl.COLOR_BUFFER_BIT | gl.DEPTH_BUFFER_BIT)
 
 // Program
@@ -110,6 +110,77 @@ gl.vertexAttribPointer(
 )
 gl.enableVertexAttribArray(attribLocations.a_Color)
 
+const m3 = {
+	identity: function(){
+		return [
+			1, 0, 0,
+			0, 1, 0,
+			0, 0, 1
+		]
+	},
+	// Assumes a & b are both 3x3 matrixes represented in a 1d array
+	multiply: function(a,b){
+		const a00 = a[0*3 + 0]
+		const a01 = a[0*3 + 1]
+		const a02 = a[0*3 + 2]
+		const a10 = a[1*3 + 0]
+		const a11 = a[1*3 + 1]
+		const a12 = a[1*3 + 2]
+		const a20 = a[2*3 + 0]
+		const a21 = a[2*3 + 1]
+		const a22 = a[2*3 + 2]
+
+		const b00 = b[0*3 + 0]
+		const b01 = b[0*3 + 1]
+		const b02 = b[0*3 + 2]
+		const b10 = b[1*3 + 0]
+		const b11 = b[1*3 + 1]
+		const b12 = b[1*3 + 2]
+		const b20 = b[2*3 + 0]
+		const b21 = b[2*3 + 1]
+		const b22 = b[2*3 + 2]
+		return [
+			a00 * b00 + a01 * b10 + a02 * b20,
+			a00 * b01 + a01 * b11 + a02 * b21,
+			a00 * b02 + a01 * b12 + a02 * b22,
+
+			a10 * b00 + a11 * b10 + a12 * b20,
+			a10 * b01 + a11 * b11 + a12 * b21,
+			a10 * b02 + a11 * b12 + a12 * b22,
+
+			a20 * b00 + a21 * b10 + a22 * b20,
+			a20 * b01 + a21 * b11 + a22 * b21,
+			a20 * b02 + a21 * b12 + a22 * b22
+		]
+	},
+	scale: function(sx,sy){
+		return [
+			sx, 0, 0,
+			0, sy, 0,
+			0, 0, 1,
+		]
+	},
+	transpose: function(tx,ty){
+		return [
+			1, 0, 0,
+			0, 1, 0,
+			tx, ty, 1
+		]
+	},
+	rotate: function(degrees){
+		const radians = degrees * Math.PI/180
+		return [
+			Math.cos(radians), -Math.sin(radians), 0,
+			Math.sin(radians), Math.cos(radians), 0,
+			0, 0, 1
+		]
+	}
+}
+// Preperation for rendering
+let transformationMatrix = m3.rotate(0)
+
+// Uniforms
+gl.uniformMatrix3fv(uniformLocations.u_TransformMatrix,false,transformationMatrix)
 
 
 
@@ -122,6 +193,9 @@ gl.drawElements(gl.TRIANGLES,indexData.length,gl.UNSIGNED_SHORT,0)
 
 
 // FUNCTIONS
+
+
+
 function buildShader(type,source){
 	const shader = gl.createShader(type)
 	gl.shaderSource(shader,source)
