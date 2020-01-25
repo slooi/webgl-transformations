@@ -4,9 +4,6 @@ body{
 canvas {
 	float:left;
 }
-#container{
-	vertical-align: middle;
-}
 #controls{
 	padding-left: 0.5rem;
 	padding-top: 1rem;
@@ -18,7 +15,4 @@ canvas {
 }
 tr>td:first-child{
 	float: right;
-}
-P{
-	margin: 0.5rem;
 }
